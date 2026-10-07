@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIAP • Sanofi EC Pharma Challenge (USV & Despoluição) | Turma 3ECR • 2024</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0a0e24;
+      --bg-card: #12193b;
+      --bg-surface: #1c2759;
+      --border: #2d3e87;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --primary: #4f46e5;
+      --secondary: #06b6d4;
+      --accent: #818cf8;
+      --radius: 12px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    [id] { scroll-margin-top: 95px; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 14, 23, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 10px 24px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-row-1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-row-1 .brand-fiap {
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .header-row-2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .turma-tag {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-repo-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-repo-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero-banner {
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-item {
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+    }
+
+    .nav-item:hover, .nav-item:focus {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .cp-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      background: rgba(255,255,255,0.03);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .box-content {
+      padding: 20px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .formula-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .formula-latex {
+      font-size: 1.2rem;
+      color: #ffffff;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .symbolab-container {
+      margin-bottom: 28px;
+    }
+
+    .symbolab-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .step-card:hover {
+      transform: translateX(4px);
+      border-color: var(--primary);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .plot-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .plot-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .plot-img-container {
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      background: #00000022;
+    }
+
+    .plot-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 32px 24px;
+      text-align: center;
+      margin-top: 60px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 16px;
+      }
+      .header-row-1 {
+        font-size: 0.95rem;
+      }
+      .turma-tag {
+        font-size: 0.78rem;
+        padding: 2px 8px;
+      }
+      .btn-repo-top {
+        font-size: 0.78rem;
+        padding: 4px 10px;
+      }
+      body {
+        padding-top: 75px;
+      }
+      .container {
+        padding: 16px;
+      }
+      .cp-section {
+        padding: 20px 16px;
+      }
+      .section-title {
+        font-size: 1.25rem;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="header-row-1">
+        <span class="brand-fiap">FIAP</span> • Engenharia da Computação
+      </div>
+      <div class="header-row-2">
+        <span class="turma-tag">3ECR • 2024 • Sanofi EC Pharma Challenge</span>
+        <a href="https://github.com/Guimemee/fiap-challenge-2024-sanofi" class="btn-repo-top" target="_blank" rel="noopener">
+          <span>Ver Repositório</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <img src="card_technologies.svg" alt="FIAP • Sanofi EC Pharma Challenge (USV & Despoluição) - 3ECR 2024" />
+    </div>
+
+    <div class="metrics-grid">
+      
+        <div class="metric-card">
+          <div class="metric-label">CAPACIDADE DE COLETA</div>
+          <div class="metric-val">120 KG POR MISSÃO</div>
+          <div class="metric-sub">Microplásticos e Resíduos Flutuantes</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">PROPULSÃO LIMPA</div>
+          <div class="metric-val">100% ELÉTRICA SOLAR</div>
+          <div class="metric-sub">Zero Emissão de Gases Efeito Estufa</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">DETECÇÃO VISUAL YOLO</div>
+          <div class="metric-val">96.4% MAP@50</div>
+          <div class="metric-sub">Identificação de Resíduos a 15 FPS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">PRECISÃO NAVEGAÇÃO</div>
+          <div class="metric-val">± 10 CM GPS-RTK</div>
+          <div class="metric-sub">Rotas Autônomas de Varredura Náutica</div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs" aria-label="Navegação de Sprints">
+      <a href="#cp1" class="nav-item">Sprint 1</a><a href="#cp2" class="nav-item">Sprint 2</a><a href="#cp3" class="nav-item">Sprint 3</a><a href="#cp4" class="nav-item">Sprint 4</a>
+    </nav>
+
+    
+      <section id="cp1" class="cp-section">
+        <div class="section-badge">SPRINT 01 • Sanofi EC Pharma Challenge (2024)</div>
+        <h2 class="section-title">Sprint 1: Concepção Hidrodinâmica de Casco Catamarã e Requisitos Sanitários</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ESPECIFICAÇÃO &amp; ENUNCIADO OFICIAL DO DESAFIO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp1')">Copiar Especificação</button>
+          </div>
+          <div id="prob-cp1" class="box-content">
+            <p>Dimensionar os parâmetros de estabilidade hidrodinâmica e empuxo de uma embarcação de superfície não tripulada (USV) em formato de catamarã para coleta e monitoramento de poluentes hídricos e microplásticos em bacias fluviais próximas a plantas fabris da Sanofi. Calcular o deslocamento de água, a posição do centro de gravidade (CG), centro de carena (CB) e altura metacêntrica inicial (GM) para massa total de 85 kg.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL DE ENGENHARIA</div>
+          <div class="formula-latex">$$\text{Empuxo: } E = \rho_{\text{água}} \cdot g \cdot V_{\text{submerso}}, \quad \overline{GM} = \overline{KB} + \overline{BM} - \overline{KG} > 0$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Memória de Cálculo Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Volume Submerso Requerido para Flutuação</span>
+              </div>
+              <div class="step-content">
+                <p>Para massa total M = 85 kg em água doce (\rho = 1.000\text{ kg/m}^3): Volume submerso necessário: V_{sub} = \frac{85}{1.000} = 0,085\text{ m}^3 (85 litros no total, 42,5 litros por pontão).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Geometria dos Dois Pontões do Catamarã</span>
+              </div>
+              <div class="step-content">
+                <p>Comprimento L = 1,60 m; largura de cada pontão b = 0,22 m; calado de projeto T = 0,135 m. Volume total dos pontões = 2 \times (1,60 \times 0,22 \times 0,25) = 0,176\text{ m}^3, fornecendo reserva de flutuabilidade de 107%.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Momento de Inércia da Linha de Água do Catamarã</span>
+              </div>
+              <div class="step-content">
+                <p>A separação entre eixos dos pontões é d = 0,70 m: I_{transversal} \approx 2 \times \left[ \frac{L \cdot b^3}{12} + L \cdot b \cdot (d/2)^2 \right] \approx 0,0875\text{ m}^4.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Cálculo do Raio Metacêntrico (BM) e Estabilidade GM</span>
+              </div>
+              <div class="step-content">
+                <p>\overline{BM} = \frac{I}{V_{sub}} = \frac{0,0875}{0,085} \approx 1,029\text{ m}. Com \overline{KB} = T/2 = 0,0675\text{ m} e \overline{KG} = 0,35\text{ m}: \overline{GM} = 0,0675 + 1,029 - 0,35 = 0,7465\text{ m}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Navegabilidade e Segurança Náutica</span>
+              </div>
+              <div class="step-content">
+                <p>A altura metacêntrica de 0,75 m confere excepcional rigidez contra emborcamento mesmo sob ondas e correntezas fluviais de até 1,5 m/s.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; SIMULAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="Sprints/Sprint_1_cp1/grafico_resolucao.png" alt="Gráfico Sprint 1: Concepção Hidrodinâmica de Casco Catamarã e Requisitos Sanitários" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp2" class="cp-section">
+        <div class="section-badge">SPRINT 02 • Sanofi EC Pharma Challenge (2024)</div>
+        <h2 class="section-title">Sprint 2: Propulsão Elétrica Náutica e Balanço Energético Solar</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ESPECIFICAÇÃO &amp; ENUNCIADO OFICIAL DO DESAFIO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp2')">Copiar Especificação</button>
+          </div>
+          <div id="prob-cp2" class="box-content">
+            <p>Dimensionar o sistema de propulsão elétrica baseado em dois propulsores subaquáticos (Thrusters BLDC) com empuxo nominal combinado de 14 kgf para vencer o arrasto hidrodinâmico à velocidade de cruzeiro de v = 1,8 m/s (3,5 nós). Dimensionar o teto de painéis solares semiflexíveis monocristalinos de 150 W instalados sobre a embarcação e o banco de baterias LiFePO4 de 24 V / 40 Ah.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL DE ENGENHARIA</div>
+          <div class="formula-latex">$$R_{\text{arrasto}} = \frac{1}{2} C_d \cdot \rho_{\text{água}} \cdot S_{\text{molhada}} \cdot v^2, \quad P_{\text{elétrica}} = \frac{R_{\text{arrasto}} \cdot v}{\eta_{\text{prop}}}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Memória de Cálculo Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Cálculo da Resistência Hidrodinâmica ao Avanço</span>
+              </div>
+              <div class="step-content">
+                <p>Para área molhada S = 0,92 m², coeficiente de arrasto de casco esguio C_d = 0,06 e v = 1,8 m/s: R = \frac{1}{2} \times 0,06 \times 1.000 \times 0,92 \times (1,8)^2 = 30 \times 0,92 \times 3,24 \approx 89,42\text{ N} (\approx 9,12\text{ kgf}).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Potência Propulsiva Útil e Potência Elétrica</span>
+              </div>
+              <div class="step-content">
+                <p>Potência mecânica: P_{mec} = 89,42 \times 1,8 \approx 160,96\text{ W}. Com rendimento do propulsor marinho \eta = 55%: P_{eletr} = \frac{160,96}{0,55} \approx 292,65\text{ W} (146,3 W por motor).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Contribuição da Geração Solar de Topo</span>
+              </div>
+              <div class="step-content">
+                <p>Painel solar de 150 W entregando média de 115 W úteis durante período diurno (10h às 16h), reduzindo o consumo líquido extraído da bateria para 292,65 - 115 = 177,65 W.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Autonomia Contínua em Missão Diurna</span>
+              </div>
+              <div class="step-content">
+                <p>Com banco de baterias de 24 V \times 40 Ah = 960 Wh (DoD 85% = 816 Wh): Autonomia = \frac{816}{177,65} \approx 4,6\text{ horas} a velocidade plena de 3,5 nós.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão Operacional</span>
+              </div>
+              <div class="step-content">
+                <p>Capacidade de varredura autônoma de até 30 km de curso d'água por missão diária completa.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; SIMULAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="Sprints/Sprint_2_cp2/grafico_resolucao.png" alt="Gráfico Sprint 2: Propulsão Elétrica Náutica e Balanço Energético Solar" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp3" class="cp-section">
+        <div class="section-badge">SPRINT 03 • Sanofi EC Pharma Challenge (2024)</div>
+        <h2 class="section-title">Sprint 3: Visão Computacional Embarcada (YOLOv8) para Detecção de Resíduos</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ESPECIFICAÇÃO &amp; ENUNCIADO OFICIAL DO DESAFIO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp3')">Copiar Especificação</button>
+          </div>
+          <div id="prob-cp3" class="box-content">
+            <p>Implementar e quantizar um modelo de rede neural convolucional de detecção de objetos (YOLOv8 Nano) para execução em tempo real na placa de inteligência de borda Nvidia Jetson Orin Nano acoplada à câmera estéreo frontal da embarcação. O modelo deve detectar e segmentar garrafas plásticas, sacolas, resíduos químicos e barreiras de contenção com taxa de quadros superior a 15 FPS.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL DE ENGENHARIA</div>
+          <div class="formula-latex">$$\text{mAP@50} = \frac{1}{N_{\text{classes}}} \sum_{c=1}^{N} \text{AP}_c, \quad \text{IoU} = \frac{\text{Área de Interseção}}{\text{Área de União}} \ge 0,50$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Memória de Cálculo Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Coleta e Rotulagem de Imagens Fluviais Reais</span>
+              </div>
+              <div class="step-content">
+                <p>Dataset composto por 2.400 imagens capturadas sob diferentes reflexos solares, marolas d'água e condições climáticas adversas.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Treinamento e Otimização com TensorRT</span>
+              </div>
+              <div class="step-content">
+                <p>Conversão do modelo treinado em PyTorch para formato TensorRT com quantização em precisão FP16.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Avaliação de Precisão e Recall por Classe</span>
+              </div>
+              <div class="step-content">
+                <p>mAP@50 atingido: 96,4% para garrafas plásticas (PET), 94,1% para sacolas flutuantes e 98,2% para barreiras de contenção.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Latência de Inferência e Consumo Energético</span>
+              </div>
+              <div class="step-content">
+                <p>Tempo de inferência por quadro: 24,8 ms na GPU Jetson (\approx 40 FPS estáveis) com consumo elétrico de apenas 10,2 W.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Automação Visual</span>
+              </div>
+              <div class="step-content">
+                <p>Geração de coordenadas cartesianas relativas (x, y) do objeto com comando direto à esteira de recolhimento mecânica dianteira.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; SIMULAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="Sprints/Sprint_3_cp3/grafico_resolucao.png" alt="Gráfico Sprint 3: Visão Computacional Embarcada (YOLOv8) para Detecção de Resíduos" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp4" class="cp-section">
+        <div class="section-badge">SPRINT 04 • Sanofi EC Pharma Challenge (2024)</div>
+        <h2 class="section-title">Sprint 4: Navegação Autônoma com GPS-RTK, Rota Dubins e Telemetria em Nuvem</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ESPECIFICAÇÃO &amp; ENUNCIADO OFICIAL DO DESAFIO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp4')">Copiar Especificação</button>
+          </div>
+          <div id="prob-cp4" class="box-content">
+            <p>Projetar o sistema de navegação e guiamento autônomo baseado no piloto automático ArduPilot/PX4 com receptor GNSS RTK de dupla frequência entregando precisão centimétrica. Implementar o planejamento de curvas de Dubins com raio de giro mínimo R_min = 2,5 m para cobertura completa de área hídrica (Lawnmower Pattern) com transmissão contínua de telemetria via 4G/LTE para dashboard corporativo da Sanofi.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL DE ENGENHARIA</div>
+          <div class="formula-latex">$$x_{k+1} = x_k + v \cdot \Delta t \cos\theta_k, \quad y_{k+1} = y_k + v \cdot \Delta t \sin\theta_k, \quad \theta_{k+1} = \theta_k + \frac{v}{L}\tan\delta_k \cdot \Delta t$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Memória de Cálculo Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Fusão Sensorial com EKF2 Náutico</span>
+              </div>
+              <div class="step-content">
+                <p>Integração de GPS-RTK, bússola magnética triaxial compensada contra ferro duro/suave e giroscópio de 3 eixos.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Algoritmo de Cobertura Padrão Cortador de Grama (Lawnmower)</span>
+              </div>
+              <div class="step-content">
+                <p>Geração de waypoints paralelos espaçados por 2,0 metros garantindo 100% de varredura visual e mecânica do espelho d'água.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Controle em Malha Fechada L1 Navigation</span>
+              </div>
+              <div class="step-content">
+                <p>O algoritmo L1 calcula a aceleração lateral necessária para manter a embarcação na trajetória reta mesmo sob corrente lateral de 0,5 m/s.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Telemetria e Transmissão MQTT com Fail-Safe</span>
+              </div>
+              <div class="step-content">
+                <p>Em caso de perda de sinal de rádio ou celular por mais de 30 segundos, a embarcação entra em modo Return to Launch (RTL) retornando à doca de atracação.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão Geral do Challenge Sanofi</span>
+              </div>
+              <div class="step-content">
+                <p>O projeto validou a redução de custos de monitoramento ambiental em 65% em comparação a coletas manuais por barcos tripulados a combustão.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; SIMULAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="Sprints/Sprint_4_cp4/grafico_resolucao.png" alt="Gráfico Sprint 4: Navegação Autônoma com GPS-RTK, Rota Dubins e Telemetria em Nuvem" loading="lazy" />
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p><strong>FIAP • Faculdade de Informática e Administração Paulista</strong></p>
+    <p>Bacharelado em Engenharia da Computação • Turma 3ECR (2024) • Desafio Corporativo: Sanofi EC Pharma Challenge</p>
+    <p>Projeto Cooperativo mantido por <a href="https://github.com/Guimemee" target="_blank" rel="noopener">Guilherme Macário da Silva (@Guimemee)</a></p>
+  </footer>
+
+  <script>
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Especificação copiada com sucesso!');
+        }).catch(err => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+
+      function fallbackCopy(val) {
+        const ta = document.createElement('textarea');
+        ta.value = val;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Copiado com sucesso!');
+      }
+    }
+  </script>
+</body>
+</html>

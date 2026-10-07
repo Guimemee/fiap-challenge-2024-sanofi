@@ -1,0 +1,8 @@
+FIAP • Engenharia da Computação
+Projeto Cooperativo: Sanofi EC Pharma Challenge (USV & Despoluição)
+Parceiro: Sanofi EC Pharma Challenge
+Turma 3ECR • Ano 2024
+Sprint 04: Sprint 4: Navegação Autônoma com GPS-RTK, Rota Dubins e Telemetria em Nuvem
+
+ENUNCIADO E ESPECIFICAÇÃO TÉCNICA:
+Projetar o sistema de navegação e guiamento autônomo baseado no piloto automático ArduPilot/PX4 com receptor GNSS RTK de dupla frequência entregando precisão centimétrica. Implementar o planejamento de curvas de Dubins com raio de giro mínimo R_min = 2,5 m para cobertura completa de área hídrica (Lawnmower Pattern) com transmissão contínua de telemetria via 4G/LTE para dashboard corporativo da Sanofi.

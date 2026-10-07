@@ -1,0 +1,8 @@
+FIAP • Engenharia da Computação
+Projeto Cooperativo: Sanofi EC Pharma Challenge (USV & Despoluição)
+Parceiro: Sanofi EC Pharma Challenge
+Turma 3ECR • Ano 2024
+Sprint 03: Sprint 3: Visão Computacional Embarcada (YOLOv8) para Detecção de Resíduos
+
+ENUNCIADO E ESPECIFICAÇÃO TÉCNICA:
+Implementar e quantizar um modelo de rede neural convolucional de detecção de objetos (YOLOv8 Nano) para execução em tempo real na placa de inteligência de borda Nvidia Jetson Orin Nano acoplada à câmera estéreo frontal da embarcação. O modelo deve detectar e segmentar garrafas plásticas, sacolas, resíduos químicos e barreiras de contenção com taxa de quadros superior a 15 FPS.

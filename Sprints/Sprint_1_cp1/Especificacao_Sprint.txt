@@ -1,0 +1,8 @@
+FIAP • Engenharia da Computação
+Projeto Cooperativo: Sanofi EC Pharma Challenge (USV & Despoluição)
+Parceiro: Sanofi EC Pharma Challenge
+Turma 3ECR • Ano 2024
+Sprint 01: Sprint 1: Concepção Hidrodinâmica de Casco Catamarã e Requisitos Sanitários
+
+ENUNCIADO E ESPECIFICAÇÃO TÉCNICA:
+Dimensionar os parâmetros de estabilidade hidrodinâmica e empuxo de uma embarcação de superfície não tripulada (USV) em formato de catamarã para coleta e monitoramento de poluentes hídricos e microplásticos em bacias fluviais próximas a plantas fabris da Sanofi. Calcular o deslocamento de água, a posição do centro de gravidade (CG), centro de carena (CB) e altura metacêntrica inicial (GM) para massa total de 85 kg.

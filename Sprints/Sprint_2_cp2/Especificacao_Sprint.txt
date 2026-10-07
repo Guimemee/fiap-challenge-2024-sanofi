@@ -1,0 +1,8 @@
+FIAP • Engenharia da Computação
+Projeto Cooperativo: Sanofi EC Pharma Challenge (USV & Despoluição)
+Parceiro: Sanofi EC Pharma Challenge
+Turma 3ECR • Ano 2024
+Sprint 02: Sprint 2: Propulsão Elétrica Náutica e Balanço Energético Solar
+
+ENUNCIADO E ESPECIFICAÇÃO TÉCNICA:
+Dimensionar o sistema de propulsão elétrica baseado em dois propulsores subaquáticos (Thrusters BLDC) com empuxo nominal combinado de 14 kgf para vencer o arrasto hidrodinâmico à velocidade de cruzeiro de v = 1,8 m/s (3,5 nós). Dimensionar o teto de painéis solares semiflexíveis monocristalinos de 150 W instalados sobre a embarcação e o banco de baterias LiFePO4 de 24 V / 40 Ah.
